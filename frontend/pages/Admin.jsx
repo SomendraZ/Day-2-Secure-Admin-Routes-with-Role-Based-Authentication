@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function Admin() {
   const [content, setContent] = useState("");
@@ -16,19 +16,24 @@ function Admin() {
 
       try {
         // Fetch user information (role) along with the dashboard data
-        const response = await axios.get("http://localhost:5000/api/admin/dashboard", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          "http://localhost:5000/api/admin/dashboard",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         // If the user has admin privileges, allow access to the dashboard
-        if (response.data.role === 'admin') {
+        if (response.data.role === "admin") {
           setIsAdmin(true);
           setContent(response.data.content); // Set the actual confidential content
         } else {
           setIsAdmin(false);
-          setErrorMessage("You do not have admin access. This page is confidential.");
+          setErrorMessage(
+            "You do not have admin access. This page is confidential."
+          );
         }
       } catch (error) {
         setErrorMessage("Access denied or token expired.");
